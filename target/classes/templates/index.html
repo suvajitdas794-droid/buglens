@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BugLens — Developer Error Intelligence</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head><body>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-mark">⌬</span><div><b>BugLens</b><small>Developer Intelligence</small></div></div>
+  <nav>
+    <a href="#dashboard" class="nav active" data-page="dashboard">◈ <span>Dashboard</span></a>
+    <a href="#analyzer" class="nav" data-page="analyzer">⌕ <span>Analyzer</span></a>
+    <a href="#history" class="nav" data-page="history">◷ <span>History</span></a>
+    <a href="#playground" class="nav" data-page="playground">⌘ <span>Playground</span></a>
+    <a href="#settings" class="nav" data-page="settings">⚙ <span>Settings</span></a>
+  </nav>
+  <div class="side-card"><span class="pulse"></span><div><b>Analyzer online</b><small>Rule engine ready</small></div></div>
+  <div class="sidebar-footer">BugLens v1.0<br><span>Built for developers</span></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><span class="eyebrow">DEVELOPER TOOLKIT</span><h1 id="pageTitle">Good evening, debugger.</h1></div><button class="icon-btn" id="themeBtn">☾</button></header>
+
+<section id="dashboard" class="page active-page">
+  <div class="hero"><div><span class="badge">SMART LOG ANALYSIS</span><h2>Find the bug.<br><em>Understand the cause.</em></h2><p>Paste a stack trace, log or error message and BugLens turns noise into an actionable debugging plan.</p><button class="primary" onclick="go('analyzer')">Analyze an error <span>→</span></button></div><div class="hero-orb"><div class="orb-core">⌬</div></div></div>
+  <div class="stats-grid">
+    <div class="stat"><span>Total analyses</span><strong id="total">0</strong><small>saved investigations</small></div>
+    <div class="stat"><span>Critical</span><strong id="critical">0</strong><small>needs immediate attention</small></div>
+    <div class="stat"><span>High severity</span><strong id="high">0</strong><small>priority issues</small></div>
+    <div class="stat"><span>Database</span><strong id="database">0</strong><small>database-related cases</small></div>
+  </div>
+  <div class="section-head"><div><h3>Recent investigations</h3><p>Your latest debugging sessions</p></div><button class="ghost" onclick="go('history')">View all →</button></div>
+  <div id="recent" class="recent-grid"></div>
+</section>
+
+<section id="analyzer" class="page">
+  <div class="section-head"><div><span class="eyebrow">ANALYZER</span><h2>Inspect an error</h2><p>Use the built-in engine to classify common Java, Spring, database and web errors.</p></div></div>
+  <div class="analyzer-layout">
+    <div class="panel editor-panel">
+      <div class="panel-head"><div><b>Stack trace / log</b><span id="charCount">0 characters</span></div><button class="tiny" onclick="loadSample()">Load sample</button></div>
+      <input id="titleInput" class="input" placeholder="Investigation title (e.g. Login API failing)">
+      <textarea id="logInput" placeholder="Paste your error, stack trace, server log, SQL exception..."></textarea>
+      <div class="quick-row"><span>Quick samples:</span><button onclick="sample('mysql')">MySQL</button><button onclick="sample('null')">NullPointer</button><button onclick="sample('404')">404</button><button onclick="sample('tomcat')">Tomcat/JSP</button></div>
+      <button id="analyzeBtn" class="primary full" onclick="analyze()">Analyze with BugLens <span>✦</span></button>
+    </div>
+    <div id="resultPanel" class="panel result-panel empty"><div class="empty-icon">⌕</div><h3>Analysis appears here</h3><p>Paste an error and run the analyzer.</p></div>
+  </div>
+</section>
+
+<section id="history" class="page"><div class="section-head"><div><span class="eyebrow">ARCHIVE</span><h2>Investigation history</h2><p>Review, reopen or remove previous analyses.</p></div></div><div id="historyList" class="history-list"></div></section>
+
+<section id="playground" class="page">
+ <div class="section-head"><div><span class="eyebrow">PLAYGROUND</span><h2>Debugging playground</h2><p>Try different scenarios and learn what signals BugLens looks for.</p></div></div>
+ <div class="cards-3">
+  <div class="feature-card"><span>01</span><h3>Exception Finder</h3><p>Detects common Java and Spring exceptions and identifies the likely root cause.</p></div>
+  <div class="feature-card"><span>02</span><h3>Stack Trace Lens</h3><p>Separates the useful exception signal from repetitive stack-trace noise.</p></div>
+  <div class="feature-card"><span>03</span><h3>Fix Planner</h3><p>Turns a detected problem into concrete debugging steps instead of vague advice.</p></div>
+ </div>
+ <div class="panel lab"><h3>Pattern scanner</h3><div class="pattern-grid"><span>NullPointerException</span><span>SQLException</span><span>Whitelabel Error</span><span>404 Not Found</span><span>OutOfMemoryError</span><span>TimeoutException</span><span>403 Forbidden</span><span>JSP errors</span></div></div>
+</section>
+
+<section id="settings" class="page"><div class="section-head"><div><span class="eyebrow">PREFERENCES</span><h2>Workspace settings</h2><p>Control the local BugLens experience.</p></div></div>
+<div class="settings-grid"><div class="panel setting"><div><b>Compact sidebar</b><p>Use a smaller navigation rail.</p></div><label class="switch"><input type="checkbox" id="compact"><i></i></label></div>
+<div class="panel setting"><div><b>Auto-load sample</b><p>Populate the analyzer with a demo error on startup.</p></div><label class="switch"><input type="checkbox" id="autosample"><i></i></label></div>
+<div class="panel setting"><div><b>Motion effects</b><p>Enable subtle interface animations.</p></div><label class="switch"><input type="checkbox" checked id="motion"><i></i></label></div></div>
+</section>
+</main></div>
+<div id="toast" class="toast"></div>
+<script src="/js/app.js"></script>
+</body></html>
